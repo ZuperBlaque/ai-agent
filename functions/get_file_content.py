@@ -1,5 +1,22 @@
 import os
 from config import MAX_FILE_LENGTH
+from google.genai import types
+
+# Define the function schema for get_files_info
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Reads the content of a file located within the working directory and returns it as a string.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the file to read, relative to the working directory.",
+            )
+        },
+        required=["file_path"]
+    )
+)
 
 def get_file_content(working_directory, file_path):
     """
